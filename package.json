@@ -1,0 +1,23 @@
+{
+  "name": "file-manager",
+  "version": "1.0.0",
+  "description": "rs-task",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Vanya1000/File-Manager.git"
+  },
+  "keywords": [
+    "nodejs"
+  ],
+  "author": "Ivan Zaharenko",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Vanya1000/File-Manager/issues"
+  },
+  "homepage": "https://github.com/Vanya1000/File-Manager#readme"
+}
