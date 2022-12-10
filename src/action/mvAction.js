@@ -1,13 +1,13 @@
-import { createReadStream, createWriteStream } from "fs";
-import { rm } from "fs/promises";
-import { resolve, parse } from "path";
-import { pipeline } from "stream/promises";
-import printCurrentDirectory from "../components/currentDirectory.js";
-import { isExistFile } from "../utils/utils.js";
+import { createReadStream, createWriteStream } from 'fs';
+import { rm } from 'fs/promises';
+import { resolve, parse } from 'path';
+import { pipeline } from 'stream/promises';
+import printCurrentDirectory from '../components/currentDirectory.js';
+import { isExistFile } from '../utils/utils.js';
 
 const mvAction = async (fileNameArgs) => {
   try {
-    if (fileNameArgs.length < 2) throw new Error("Invalid number of arguments");
+    if (fileNameArgs.length < 2) throw new Error('Invalid number of arguments');
     const [nameSource, nameDirDestination] = fileNameArgs;
     const currentDir = process.cwd();
     const filePathSource = resolve(currentDir, nameSource);
@@ -15,14 +15,14 @@ const mvAction = async (fileNameArgs) => {
     const dirPathDestination = resolve(currentDir, nameDirDestination, base);
     
     const isExistSourceFile = await isExistFile(filePathSource);
-    if (!isExistSourceFile) throw new Error("File not found");
+    if (!isExistSourceFile) throw new Error('File not found');
     const readableStream = createReadStream(filePathSource);
     const writableStream = createWriteStream(dirPathDestination);
     await pipeline(readableStream, writableStream);
     await rm(filePathSource);
     printCurrentDirectory();
   } catch (error) {
-    console.log("Operation failed");
+    console.log('Operation failed');
   }
 };
 
