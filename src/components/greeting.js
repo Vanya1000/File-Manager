@@ -5,7 +5,6 @@ const greetingNoName = 'Welcome to the File Manager, unknown!'
 
 const greeting = () => {
   const name = parseUserNameArg();
-  console.log(name);
   if (name) {
     console.log(`Welcome to the File Manager, ${name}!`);
   } else {

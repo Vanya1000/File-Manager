@@ -1,20 +1,9 @@
 import { createReadStream } from 'fs';
 import { resolve } from 'path';
 import { pipeline } from 'stream/promises';
-import { Writable } from 'stream';
-import { EOL } from 'os';
+
 import printCurrentDirectory from '../components/currentDirectory.js';
-
-class myWritable extends Writable {
-  constructor(opt) {
-    super(opt);
-  }
-
-  _write(chunk, encoding, callback) {
-    console.log(chunk.toString() + EOL);
-    callback();
-  }
-}
+import { myWritable } from '../utils/castomWritableStream.js';
 
 const catAction = async (fileName) => {
   const [file] = fileName;

@@ -7,6 +7,8 @@ import catAction from './catAction.js';
 import cpAction from './cpAction.js';
 import rmAction from './rmAction.js';
 import mvAction from './mvAction.js';
+import osAction from './osAction.js';
+import hashAction from './hashAction.js';
 
 const actionRouter = (str) => {
   const [action, ...rest] = str.toString().trim().split(' ')
@@ -37,6 +39,12 @@ const actionRouter = (str) => {
         break;
       case 'mv':
         mvAction(rest);
+        break;
+      case 'os':
+        osAction(rest);
+        break;
+      case 'hash':
+        hashAction(rest);
         break;
       default:
         console.log('Input invalid');
