@@ -1,5 +1,5 @@
 import { createReadStream } from 'fs';
-import { join } from 'path';
+import { resolve } from 'path';
 import { pipeline } from 'stream/promises';
 import { Writable } from 'stream';
 import { EOL } from 'os';
@@ -19,7 +19,7 @@ class myWritable extends Writable {
 const catAction = async (fileName) => {
   const [file] = fileName;
   const currentDir = process.cwd();
-  const pathFile = join(currentDir, file);
+  const pathFile = resolve(currentDir, file);
   try {
     const readableStream = createReadStream(pathFile);
     const writableStream = new myWritable();

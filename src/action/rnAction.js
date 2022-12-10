@@ -1,20 +1,23 @@
-import fs from 'fs/promises';
-import { join } from 'path';
-import printCurrentDirectory from '../components/currentDirectory.js';
-import { isExistFile } from '../utils/utils.js';
+import fs from "fs/promises";
+import { resolve, parse } from "path";
+import printCurrentDirectory from "../components/currentDirectory.js";
+import { isExistFile } from "../utils/utils.js";
 
-const rnAction = async (fileName) => {
-  const [name, newName] = fileName;
-  const currentDir = process.cwd();
-  const pathSource = join(currentDir, name);
-  const pathDestination = join(currentDir, newName);
+const rnAction = async (fileNameArgs) => {
   try {
-    const isExistSourceFile = await isExistFile(pathDestination)
-    if (isExistSourceFile) throw new Error('File already exists');
+    if (fileNameArgs.length < 2) throw new Error("Invalid number of arguments");
+    const [name, newName] = fileNameArgs;
+    const currentDir = process.cwd();
+    const pathSource = resolve(currentDir, name);
+    const { dir } = parse(pathSource);
+    const pathDestination = resolve(dir, newName);
+
+    const isExistSourceFile = await isExistFile(pathDestination);
+    if (isExistSourceFile) throw new Error("File already exists");
     await fs.rename(pathSource, pathDestination);
     printCurrentDirectory();
   } catch (error) {
-    console.log('Operation failed');
+    console.log("Operation failed");
   }
 };
 
