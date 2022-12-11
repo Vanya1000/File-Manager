@@ -9,46 +9,78 @@ import rmAction from './rmAction.js';
 import mvAction from './mvAction.js';
 import osAction from './osAction.js';
 import hashAction from './hashAction.js';
+import compressAction from './compressAction.js';
+import decompressAction from './decompressAction.js';
+
+const mapAction = {
+  'up': {
+    args: 0,
+    fn: upAction,
+  },
+  'cd': {
+    args: 1,
+    fn: cdAction,
+  },
+  'ls': {
+    args: 0,
+    fn: lsAction,
+  },
+  'add': {
+    args: 1,
+    fn: addAction,
+  },
+  'rn': {
+    args: 2,
+    fn: rnAction,
+  },
+  'cat': {
+    args: 1,
+    fn: catAction,
+  },
+  'cp': {
+    args: 2,
+    fn: cpAction,
+  },
+  'rm': {
+    args: 1,
+    fn: rmAction,
+  },
+  'mv': {
+    args: 2,
+    fn: mvAction,
+  },
+  'os': {
+    args: 1,
+    fn: osAction,
+  },
+  'hash': {
+    args: 1,
+    fn: hashAction,
+  },
+  'compress': {
+    args: 2,
+    fn: compressAction,
+  },
+  'decompress': {
+    args: 2,
+    fn: decompressAction,
+  }
+}
 
 const actionRouter = (str) => {
+  if (!str) {
+    console.log('Input invalid');
+    return;
+  }
   const [action, ...rest] = str.toString().trim().split(' ')
-    switch (action) {
-      case 'up':
-        upAction();
-        break;
-      case 'cd': //todo: check variant resolve path
-        cdAction(rest);
-        break;
-      case 'ls':
-        lsAction();
-        break;
-      case 'add':
-        addAction(rest);
-        break;
-      case 'rn':
-        rnAction(rest);
-        break;
-      case 'cat':
-        catAction(rest);
-        break;
-      case 'cp':
-        cpAction(rest);
-        break;
-      case 'rm':
-        rmAction(rest);
-        break;
-      case 'mv':
-        mvAction(rest);
-        break;
-      case 'os':
-        osAction(rest);
-        break;
-      case 'hash':
-        hashAction(rest);
-        break;
-      default:
-        console.log('Input invalid');
-    }
+
+  const isExistCommand = Object.keys(mapAction).includes(action);
+  const isRightCountArgs = rest.length >= mapAction[action].args;
+  if (isExistCommand && isRightCountArgs) {
+    mapAction[action].fn(rest)
+  } else {
+    console.log('Input invalid');
+  };
 };
 
 export default actionRouter;
