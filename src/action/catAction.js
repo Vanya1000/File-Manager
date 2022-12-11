@@ -5,10 +5,8 @@ import { pipeline } from 'stream/promises';
 import printCurrentDirectory from '../components/currentDirectory.js';
 import { myWritable } from '../utils/castomWritableStream.js';
 
-const catAction = async (fileName) => {
-  const [file] = fileName;
-  const currentDir = process.cwd();
-  const pathFile = resolve(currentDir, file);
+const catAction = async ([ file ]) => {
+  const pathFile = resolve(file);
   try {
     const readableStream = createReadStream(pathFile);
     const writableStream = new myWritable();

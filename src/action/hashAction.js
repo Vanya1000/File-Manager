@@ -7,7 +7,6 @@ const { createHash } = await import('crypto');
 
 const hashAction = async ([fileName]) => {
   try {
-    if (!fileName) throw new Error('No file name');
     const pathFile = resolve(fileName);
     const readableStream = createReadStream(pathFile);
     const hash = createHash('sha256');

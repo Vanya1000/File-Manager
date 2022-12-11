@@ -3,12 +3,9 @@ import { resolve, parse } from 'path';
 import printCurrentDirectory from '../components/currentDirectory.js';
 import { isExistFile } from '../utils/utils.js';
 
-const rnAction = async (fileNameArgs) => {
+const rnAction = async ([ name, newName ]) => {
   try {
-    if (fileNameArgs.length < 2) throw new Error('Invalid number of arguments');
-    const [name, newName] = fileNameArgs;
-    const currentDir = process.cwd();
-    const pathSource = resolve(currentDir, name);
+    const pathSource = resolve(name);
     const { dir } = parse(pathSource);
     const pathDestination = resolve(dir, newName);
 

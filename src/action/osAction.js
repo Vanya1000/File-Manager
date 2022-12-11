@@ -11,8 +11,6 @@ const cpusInfo = () => {
 
 const osAction = ([command]) => {
   try {
-    if (!command) throw new Error('No command');
-
     switch (command) {
       case '--EOL':
         console.log(JSON.stringify(EOL));

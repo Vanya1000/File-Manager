@@ -1,11 +1,9 @@
 import { writeFile } from 'fs/promises';
-import { join } from 'path';
+import { resolve } from 'path';
 import printCurrentDirectory from '../components/currentDirectory.js';
 
-const addAction = async (fileName) => {
-  const [name] = fileName;
-  const currentDir = process.cwd();
-  const path = join(currentDir, name);
+const addAction = async ([ name ]) => {
+  const path = resolve(name);
   try {
     await writeFile(path, '', {flag: 'wx', encoding: 'utf8'});
     printCurrentDirectory();

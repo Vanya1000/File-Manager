@@ -31,7 +31,6 @@ const decompressAction = async ([pathSource, pathDist]) => {
     await pipeline(readableStream, brotlyDecompress, writableStream);
     printCurrentDirectory();
   } catch (error) {
-    console.log(error);
     console.log('Operation failed');
   }
 };

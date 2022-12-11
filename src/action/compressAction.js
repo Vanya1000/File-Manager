@@ -40,7 +40,6 @@ const compressAction = async ([pathSource, pathDist]) => {
     await pipeline(readableStream, brotlyCompress, writableStream);
     printCurrentDirectory();
   } catch (error) {
-    console.log(error);
     console.log('Operation failed');
   }
 };

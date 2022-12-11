@@ -2,12 +2,9 @@ import { rm } from 'fs/promises';
 import { resolve } from 'path';
 import printCurrentDirectory from '../components/currentDirectory.js';
 
-const rmAction = async (fileNameArg) => {
+const rmAction = async ([ file ]) => {
   try {
-    if (fileNameArg.length === 0) throw new Error('No file name');
-    const [name] = fileNameArg;
-    const currentDir = process.cwd();
-    const path = resolve(currentDir, name);
+    const path = resolve(file);
 
     await rm(path);
     printCurrentDirectory();

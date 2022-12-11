@@ -26,7 +26,6 @@ const lsAction = async () => {
     console.table(table);
     printCurrentDirectory();
   } catch (error) {
-    console.log(error);
     console.log('Operation failed');
   }
 };
