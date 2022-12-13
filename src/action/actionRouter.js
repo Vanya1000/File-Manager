@@ -12,7 +12,8 @@ import hashAction from './hashAction.js';
 import compressAction from './compressAction.js';
 import decompressAction from './decompressAction.js';
 import printCurrentDirectory from '../components/currentDirectory.js';
-import { splitBySpaceOrDoubleQuote } from '../utils/utils.js';
+import { colorizeInRed, splitBySpaceOrDoubleQuote } from '../utils/utils.js';
+import { INPUT_INVALID } from '../comstants/index.js';
 
 const mapAction = {
   'up': {
@@ -71,7 +72,7 @@ const mapAction = {
 
 const actionRouter = async (str) => {
   if (!str) {
-    console.log('Input invalid');
+    console.log(colorizeInRed(INPUT_INVALID));
     return;
   }
   const [action, ...rest] = splitBySpaceOrDoubleQuote(str);
@@ -84,10 +85,10 @@ const actionRouter = async (str) => {
       printCurrentDirectory();
     } catch (error) {
       console.log(error); // todo: remove
-      console.log('Operation failed');
+      console.log(colorizeInRed('Operation failed'));
     }
   } else {
-    console.log('Input invalid');
+    console.log(colorizeInRed(INPUT_INVALID));
   };
 };
 

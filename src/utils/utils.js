@@ -52,3 +52,10 @@ export const splitBySpaceOrDoubleQuote = (str) => {
   return arr.filter((item) => item !== '');
 };
 
+export const colorizeInRed = (string) => {
+  return `\x1b[91m${string} \x1b[0m`;
+};
+
+export const colorizeInGreen = (string) => {
+  return `\x1b[92m${string} \x1b[0m`;
+}
