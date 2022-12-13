@@ -1,8 +1,8 @@
-import { pipeline } from "stream/promises";
-import { createReadStream, createWriteStream } from "fs";
-import { resolve, parse, join } from "path";
-import { createBrotliDecompress } from "zlib";
-import { colorizeInGreen, isExistFile } from "../utils/utils.js";
+import { pipeline } from 'stream/promises';
+import { createReadStream, createWriteStream } from 'fs';
+import { resolve, parse, join } from 'path';
+import { createBrotliDecompress } from 'zlib';
+import { colorizeInGreen, isExistFile } from '../utils/utils.js';
 
 const decompressAction = async ([pathSource, pathDist]) => {
   const pathSourceAbsolute = resolve(pathSource);
@@ -20,25 +20,25 @@ const decompressAction = async ([pathSource, pathDist]) => {
     pathDistFile = join(pathDistAbsolute, `${name}`);
     const isExistDistDir = await isExistFile(pathDistAbsolute);
     if (!isExistDistDir) {
-      pathDistFile = join(rootDist, `${baseDist}.${name.split(".").at(-1)}`);
+      pathDistFile = join(rootDist, `${baseDist}.${name.split('.').at(-1)}`);
     }
   } else {
     pathDistFile = join(`${pathDistAbsolute}`);
   }
 
-  if (extSource !== ".br") throw new Error("Invalid file extension");
+  if (extSource !== '.br') throw new Error('Invalid file extension');
 
   const isExistSourceFile = await isExistFile(pathSourceAbsolute);
-  if (!isExistSourceFile) throw new Error("File not found");
+  if (!isExistSourceFile) throw new Error('File not found');
 
   const isExistDistFile = await isExistFile(pathDistFile);
-  if (isExistDistFile) throw new Error("File already exists");
+  if (isExistDistFile) throw new Error('File already exists');
 
   const readableStream = createReadStream(pathSourceAbsolute);
   const brotlyDecompress = createBrotliDecompress();
   const writableStream = createWriteStream(pathDistFile);
   await pipeline(readableStream, brotlyDecompress, writableStream);
-  console.log(colorizeInGreen("File success decompressed"));
+  console.log(colorizeInGreen('File success decompressed'));
 };
 
 export default decompressAction;

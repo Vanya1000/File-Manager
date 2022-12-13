@@ -1,8 +1,8 @@
-import { pipeline } from "stream/promises";
-import { createReadStream, createWriteStream } from "fs";
-import { resolve, parse, join } from "path";
-import { createBrotliCompress } from "zlib";
-import { colorizeInGreen, isExistFile } from "../utils/utils.js";
+import { pipeline } from 'stream/promises';
+import { createReadStream, createWriteStream } from 'fs';
+import { resolve, parse, join } from 'path';
+import { createBrotliCompress } from 'zlib';
+import { colorizeInGreen, isExistFile } from '../utils/utils.js';
 
 const compressAction = async ([pathSource, pathDist]) => {
   const pathSourceAbsolute = resolve(pathSource);
@@ -20,25 +20,25 @@ const compressAction = async ([pathSource, pathDist]) => {
   if (!extDist) {
     pathDistFile = join(pathDistAbsolute, `${baseSource}.br`);
     const isExistDistDir = await isExistFile(pathDistAbsolute);
-    if (!isExistDistDir) throw new Error("Directory not found");
+    if (!isExistDistDir) throw new Error('Directory not found');
   } else {
-    console.log("ext", extDist);
-    extDist === ".br"
-      ? (pathDistFile = join(rootDist, `${nameDist}${extSource}${".br"}`))
+    console.log('ext', extDist);
+    extDist === '.br'
+      ? (pathDistFile = join(rootDist, `${nameDist}${extSource}${'.br'}`))
       : (pathDistFile = join(`${pathDistAbsolute}.br`));
   }
 
   const isExistSourceFile = await isExistFile(pathSourceAbsolute);
-  if (!isExistSourceFile) throw new Error("File not found");
+  if (!isExistSourceFile) throw new Error('File not found');
 
   const isExistDistFile = await isExistFile(pathDistFile);
-  if (isExistDistFile) throw new Error("File already exists");
+  if (isExistDistFile) throw new Error('File already exists');
 
   const readableStream = createReadStream(pathSourceAbsolute);
   const brotlyCompress = createBrotliCompress();
   const writableStream = createWriteStream(pathDistFile);
   await pipeline(readableStream, brotlyCompress, writableStream);
-  console.log(colorizeInGreen("File success compressed"));
+  console.log(colorizeInGreen('File success compressed'));
 };
 
 export default compressAction;

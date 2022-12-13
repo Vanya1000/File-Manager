@@ -1,5 +1,5 @@
-import { readdir } from "fs/promises";
-import { sortByName, filterByType } from "../utils/utils.js";
+import { readdir } from 'fs/promises';
+import { sortByName, filterByType } from '../utils/utils.js';
 
 const lsAction = async () => {
   const currentDir = process.cwd();
@@ -10,7 +10,7 @@ const lsAction = async () => {
 
   const table = [...onlySortFolders, ...onlySortFiles].map((dirent) => ({
     Name: dirent.name,
-    Type: dirent.isFile() ? "file" : "directory",
+    Type: dirent.isFile() ? 'file' : 'directory',
   }));
   console.table(table);
 };

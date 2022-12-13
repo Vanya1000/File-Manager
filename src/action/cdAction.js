@@ -1,7 +1,7 @@
-import { join, sep } from "path";
+import { join, sep } from 'path';
 
 const cdAction = ([path]) => {
-  if (path.includes(":")) {
+  if (path.includes(':')) {
     path.length === 2 ? process.chdir(path + sep) : process.chdir(path);
     return;
   }
