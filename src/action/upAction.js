@@ -1,11 +1,7 @@
-import { join } from 'path';
-import printCurrentDirectory from '../components/currentDirectory.js';
+import { resolve } from 'path';
 
 const upAction = () => {
-  const currentDirectory = process.cwd();
-  const parentDirectory = join(currentDirectory, '..');
-  process.chdir(parentDirectory);
-  printCurrentDirectory();
+  process.chdir(resolve('..'));
 }
 
 export default upAction;

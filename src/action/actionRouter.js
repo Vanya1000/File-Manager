@@ -11,6 +11,8 @@ import osAction from './osAction.js';
 import hashAction from './hashAction.js';
 import compressAction from './compressAction.js';
 import decompressAction from './decompressAction.js';
+import printCurrentDirectory from '../components/currentDirectory.js';
+import { splitBySpaceOrDoubleQuote } from '../utils/utils.js';
 
 const mapAction = {
   'up': {
@@ -67,17 +69,23 @@ const mapAction = {
   }
 }
 
-const actionRouter = (str) => {
+const actionRouter = async (str) => {
   if (!str) {
     console.log('Input invalid');
     return;
   }
-  const [action, ...rest] = str.toString().trim().split(' ')
+  const [action, ...rest] = splitBySpaceOrDoubleQuote(str);
 
   const isExistCommand = Object.keys(mapAction).includes(action);
   const isRightCountArgs = rest.length >= mapAction[action].args;
   if (isExistCommand && isRightCountArgs) {
-    mapAction[action].fn(rest)
+    try {
+      await mapAction[action].fn(rest);
+      printCurrentDirectory();
+    } catch (error) {
+      console.log(error); // todo: remove
+      console.log('Operation failed');
+    }
   } else {
     console.log('Input invalid');
   };

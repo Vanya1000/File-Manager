@@ -1,33 +1,18 @@
-import { readdir } from 'fs/promises';
-import printCurrentDirectory from '../components/currentDirectory.js';
-
-function File(name, type) {
-  this.Name = name;
-  this.Type = type;
-}
+import { readdir } from "fs/promises";
+import { sortByName, filterByType } from "../utils/utils.js";
 
 const lsAction = async () => {
-  try {
-    const currentDir = process.cwd();
-    const files = await readdir(currentDir, { withFileTypes: true });
-    const onlySortFolders = files.filter((dirent) => dirent.isDirectory()).sort((a,b) => {
-      if (a.name < b.name) return -1;
-      if (a.name > b.name) return 1;
-      return 0;
-    });
-    const onlySortFiles = files.filter((dirent) => dirent.isFile()).sort((a,b) => {
-      if (a.name < b.name) return -1;
-      if (a.name > b.name) return 1;
-      return 0;
-    });
-    const table = [...onlySortFolders, ...onlySortFiles].map((dirent) => {
-      return new File(dirent.name, dirent.isFile() ? 'file' : 'directory');
-    });
-    console.table(table);
-    printCurrentDirectory();
-  } catch (error) {
-    console.log('Operation failed');
-  }
+  const currentDir = process.cwd();
+  const files = await readdir(currentDir, { withFileTypes: true });
+
+  const onlySortFolders = sortByName(filterByType({files, onlyDir: true}));
+  const onlySortFiles = sortByName(filterByType({files, onlyFile: true}));
+
+  const table = [...onlySortFolders, ...onlySortFiles].map((dirent) => ({
+    Name: dirent.name,
+    Type: dirent.isFile() ? "file" : "directory",
+  }));
+  console.table(table);
 };
 
 export default lsAction;
