@@ -13,7 +13,7 @@ import compressAction from './compressAction.js';
 import decompressAction from './decompressAction.js';
 import printCurrentDirectory from '../components/currentDirectory.js';
 import { colorizeInRed, splitBySpaceOrDoubleQuote } from '../utils/utils.js';
-import { INPUT_INVALID } from '../comstants/index.js';
+import { INPUT_INVALID } from '../constants/index.js';
 
 const mapAction = {
   'up': {
@@ -84,7 +84,6 @@ const actionRouter = async (str) => {
       await mapAction[action].fn(rest);
       printCurrentDirectory();
     } catch (error) {
-      console.log(error); // todo: remove
       console.log(colorizeInRed('Operation failed'));
     }
   } else {

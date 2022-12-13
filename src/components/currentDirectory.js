@@ -1,5 +1,7 @@
+import { colorizeInBlue } from "../utils/utils.js";
+
 const printCurrentDirectory = () => {
-  console.log(`You are currently in ${process.cwd()}`);
+  console.log(colorizeInBlue(`You are currently in ${process.cwd()}`));
 }
 
 export default printCurrentDirectory;

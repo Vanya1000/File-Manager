@@ -1,7 +1,7 @@
 import { createReadStream, createWriteStream } from "fs";
 import { resolve, parse } from "path";
 import { pipeline } from "stream/promises";
-import { isExistFile } from "../utils/utils.js";
+import { colorizeInGreen, isExistFile } from "../utils/utils.js";
 
 const cpAction = async ([nameSource, nameDestination]) => {
   const filePathSource = resolve(nameSource);
@@ -15,6 +15,7 @@ const cpAction = async ([nameSource, nameDestination]) => {
     flags: "wx",
   });
   await pipeline(readableStream, writableStream);
+  console.log(colorizeInGreen("File success copied"))
 };
 
 export default cpAction;

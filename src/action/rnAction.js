@@ -1,6 +1,6 @@
 import fs from "fs/promises";
 import { resolve, parse } from "path";
-import { isExistFile } from "../utils/utils.js";
+import { colorizeInGreen, isExistFile } from "../utils/utils.js";
 
 const rnAction = async ([name, newName]) => {
   const pathSource = resolve(name);
@@ -10,6 +10,7 @@ const rnAction = async ([name, newName]) => {
   const isExistSourceFile = await isExistFile(pathDestination);
   if (isExistSourceFile) throw new Error("File already exists");
   await fs.rename(pathSource, pathDestination);
+  console.log(colorizeInGreen("File success renamed"))
 };
 
 export default rnAction;

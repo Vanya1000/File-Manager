@@ -2,7 +2,7 @@ import { createReadStream, createWriteStream } from "fs";
 import { rm } from "fs/promises";
 import { resolve, parse } from "path";
 import { pipeline } from "stream/promises";
-import { isExistFile } from "../utils/utils.js";
+import { colorizeInGreen, isExistFile } from "../utils/utils.js";
 
 const mvAction = async ([nameSource, nameDirDestination]) => {
   const filePathSource = resolve(nameSource);
@@ -15,6 +15,7 @@ const mvAction = async ([nameSource, nameDirDestination]) => {
   const writableStream = createWriteStream(dirPathDestination);
   await pipeline(readableStream, writableStream);
   await rm(filePathSource);
+  console.log(colorizeInGreen("File success moved"));
 };
 
 export default mvAction;

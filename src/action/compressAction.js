@@ -2,7 +2,7 @@ import { pipeline } from "stream/promises";
 import { createReadStream, createWriteStream } from "fs";
 import { resolve, parse, join } from "path";
 import { createBrotliCompress } from "zlib";
-import { isExistFile } from "../utils/utils.js";
+import { colorizeInGreen, isExistFile } from "../utils/utils.js";
 
 const compressAction = async ([pathSource, pathDist]) => {
   const pathSourceAbsolute = resolve(pathSource);
@@ -38,6 +38,7 @@ const compressAction = async ([pathSource, pathDist]) => {
   const brotlyCompress = createBrotliCompress();
   const writableStream = createWriteStream(pathDistFile);
   await pipeline(readableStream, brotlyCompress, writableStream);
+  console.log(colorizeInGreen("File success compressed"));
 };
 
 export default compressAction;
