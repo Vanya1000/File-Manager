@@ -78,6 +78,10 @@ const actionRouter = async (str) => {
   const [action, ...rest] = splitBySpaceOrDoubleQuote(str);
 
   const isExistCommand = Object.keys(mapAction).includes(action);
+  if (!isExistCommand) {
+    errorMessage(INPUT_INVALID);
+    return;
+  }
   const isRightCountArgs = rest.length >= mapAction[action].args;
   if (isExistCommand && isRightCountArgs) {
     try {
