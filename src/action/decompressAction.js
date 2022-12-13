@@ -2,7 +2,7 @@ import { pipeline } from 'stream/promises';
 import { createReadStream, createWriteStream } from 'fs';
 import { resolve, parse, join } from 'path';
 import { createBrotliDecompress } from 'zlib';
-import { colorizeInGreen, isExistFile } from '../utils/utils.js';
+import { successMessage, isExistFile } from '../utils/utils.js';
 
 const decompressAction = async ([pathSource, pathDist]) => {
   const pathSourceAbsolute = resolve(pathSource);
@@ -38,7 +38,7 @@ const decompressAction = async ([pathSource, pathDist]) => {
   const brotlyDecompress = createBrotliDecompress();
   const writableStream = createWriteStream(pathDistFile);
   await pipeline(readableStream, brotlyDecompress, writableStream);
-  console.log(colorizeInGreen('File success decompressed'));
+  successMessage('File success decompressed');
 };
 
 export default decompressAction;
