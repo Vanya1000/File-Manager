@@ -16,7 +16,7 @@ const initializeReadLine = () => {
   })
   .on('SIGINT', () => rl.close())
   .on('close', () => {
-    console.log(`Thank you for using File Manager, ${parseUserNameArg() || unknown}, goodbye!`);
+    console.log(`Thank you for using File Manager, ${parseUserNameArg() || 'unknown'}, goodbye!`);
     process.exit(0);
   })
 }
