@@ -15,7 +15,7 @@ const mvAction = async ([nameSource, nameDirDestination]) => {
   const writableStream = createWriteStream(dirPathDestination);
   await pipeline(readableStream, writableStream);
   await rm(filePathSource);
-  successMessagen('File success moved');
+  successMessage('File success moved');
 };
 
 export default mvAction;

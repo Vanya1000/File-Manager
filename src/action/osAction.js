@@ -1,5 +1,6 @@
 import { EOL, cpus, homedir, userInfo } from 'os';
 import { arch } from 'process';
+import { errorMessage } from '../utils/utils.js';
 
 const cpusInfo = () => {
   return cpus().map(({ model, speed }) => ({
@@ -26,7 +27,7 @@ const osAction = ([command]) => {
       console.log(arch);
       break;
     default:
-      console.log('Invalid command');
+      errorMessage('Invalid command')
   }
 };
 
