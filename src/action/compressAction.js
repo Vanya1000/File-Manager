@@ -14,15 +14,17 @@ const compressAction = async ([pathSource, pathDist]) => {
     ext: extDist,
     root: rootDist,
     name: nameDist,
+    base: baseDist,
   } = parse(pathDistAbsolute);
 
   let pathDistFile;
   if (!extDist) {
     pathDistFile = join(pathDistAbsolute, `${baseSource}.br`);
     const isExistDistDir = await isExistFile(pathDistAbsolute);
-    if (!isExistDistDir) throw new Error('Directory not found');
+    if (!isExistDistDir) {
+      pathDistFile = join(rootDist, `${baseDist}${extSource}.br`);
+    }
   } else {
-    console.log('ext', extDist);
     extDist === '.br'
       ? (pathDistFile = join(rootDist, `${nameDist}${extSource}${'.br'}`))
       : (pathDistFile = join(`${pathDistAbsolute}.br`));
